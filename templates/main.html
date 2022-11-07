@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body align = center>
+    <form method="post" action="/" enctype="multipart/form-data">
+        <input name = "files" type= "file">
+        <input type="submit">
+    </form>
+    <br><br>
+    <form method = "post" action = "/rotate" enctype = "multipart/form-data">
+        <label for = "page_num">Page Number</label><br>
+        <input name = "page_num" type="text"><br><br>
+        <label for = "angle">Angle</label><br>
+        <input name = "angle" type = "text"><br><br>
+        <input name = "apply" type = "submit" value = "Apply">
+    </form>
+</body>
+</html>
