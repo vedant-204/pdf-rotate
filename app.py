@@ -1,4 +1,3 @@
-#rotate pdf pages flask
 from flask import Flask, render_template, request, redirect, url_for, send_file
 from PyPDF2 import PdfFileWriter, PdfFileReader
 from werkzeug.utils import secure_filename
@@ -42,23 +41,6 @@ def download():
         pdf_out.close()
         pdf_in.close() 
     return redirect(url_for('home'))
-# @app.route('/rotate', methods=['POST'])
-# def rotate():
-    # if request.method == 'POST':
-        # file = request.files['file']
-        # file.save(os.path.join('static', file.filename))
-        # pdf = PdfFileReader(os.path.join('static', file.filename))
-        # pdf_writer = PdfFileWriter()
-        # for page in range(pdf.getNumPages())ear
-            # pdf_writer.addPage(pdf.getPage(page))
-        # pdf_writer.addPage(pdf.getPage(0))
-        # with open(os.path.join('static', file.filename), 'wb') as out:
-            # pdf_writer.write(out)
-        # return redirect(url_for('download', filename=file.filename))
-# 
-# @app.route('/download/<filename>')
-# def download(filename):
-    # return send_file(os.path.join('static', filename), as_attachment=True)
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0', port = 8000 ,debug=True)
