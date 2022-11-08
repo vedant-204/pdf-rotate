@@ -9,37 +9,39 @@ uploads_dir = 'upload'
 
 @app.route('/')
 def index():
+    return redirect(url_for('home'))
+
+@app.route('/home')
+def home():
     return render_template('main.html')
 
 @app.route('/upload', methods=['POST'])
 def upload():
     if request.method == 'POST':
         f = request.files['file']
-        fname = (secure_filename(f.filename))
-        f.save(os.path.join(uploads_dir, fname))
+        f.save(os.path.join(uploads_dir, 'original.pdf'))
         return redirect(url_for('rotate'))
 
 @app.route('/rotate', methods = ['GET'])
 def rotate():
-    if request.method == 'GET':
-        pdf_in = open('original.pdf', 'rb')
+    return render_template('rotate.html')
+
+@app.route('/download', methods = ['POST'])
+def download():
+    if request.method == 'POST':
+        pdf_in = open('upload/original.pdf', 'rb')
         pdf_reader = PdfFileReader(pdf_in)
         pdf_writer = PdfFileWriter()
         page_num = request.form['page_num']
+        page = pdf_reader.getPage(int(page_num))
         angle = request.form['angle']
-        page_num.rotateClockwise(angle) 
-
-        for pagenum in range(pdf_reader.numPages):
-            page = pdf_reader.getPage(pagenum)
-            if pagenum % 2:
-                page.rotateClockwise(180)
-            pdf_writer.addPage(page)
-
-        pdf_out = open('rotated.pdf', 'wb')
+        page.rotateClockwise(int(angle))
+        pdf_out = open('rotated/rotated.pdf', 'wb')
+        pdf_writer.addPage(page)
         pdf_writer.write(pdf_out)
         pdf_out.close()
-        pdf_in.close()
-
+        pdf_in.close() 
+    return redirect(url_for('home'))
 # @app.route('/rotate', methods=['POST'])
 # def rotate():
     # if request.method == 'POST':
